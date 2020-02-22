@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <title>Login</title>
+</head>
+
+<body class="bg-dark">
+
+    <div class="container">
+        <form action="" method="post" id="loginForm" class="jumbotron mx-auto col-sm-12 col-md-6 col-lg-4 mt-8">
+
+            <h4 class="text-center">Bem-vindo!</h4>
+            <h6 class="text-center">Por favor, faça login abaixo</h6>
+
+            <div class="form-group my-1 mx-auto">
+                <label class="my-2" for="user">Usuário ou E-mail</label>
+                <input class="form-control" type="text" name="user" id="user">
+                <div id="userWarn"></div>
+            </div>
+
+            <div class="form-group my-1 mx-auto">
+                <label class="my-2" for="pass">Senha</label>
+                <input class="form-control" type="password" name="pass" id="pass">
+                <div id="passWarn"></div>
+            </div>
+
+            <div class="form-group form-check mt-1">
+                <input type="checkbox" class="form-check-input" id="remember">
+                <label class="form-check-label" for="remember">Lembrar-se</label>
+                <small class="form-text d-none d-lg-inline ml-6"><a href="./">Esqueceu sua senha?</a></small>
+                <small class="form-text d-none d-md-inline d-lg-none ml-5"><a href="./">Esqueceu sua senha?</a></small>
+                <small class="form-text d-inline d-md-none d-lg-none ml-6"><a href="./">Esqueceu sua senha?</a></small>
+            </div>
+
+            <input class="form-control col-3 btn-outline-primary mx-auto mt-4" type="submit" value="Login" id="login">
+
+        </form>
+    </div>
+    <script src="./javascript/main.js"></script>
+    <script src="./javascript/jquery.js"></script>
+    <script src="./javascript/popper.js"></script>
+    <script src="./javascript/bootstrap.js"></script>
+</body>
+
+</html>
