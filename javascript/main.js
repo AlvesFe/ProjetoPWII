@@ -1,13 +1,11 @@
-var user = {
-    userName = document.querySelector('#user'),
-    passWord = document.querySelector('#pass')
-}
+var userInputElement = document.querySelector('#user');
+var passInputElement = document.querySelector('#pass');
 var userWarnElement = document.querySelector('#userWarn');
 var passWarnElement = document.querySelector('#passWarn');
 var btnLoginElement = document.querySelector('#login');
 
 function btnLoginEnabler() {
-    if (user.userName.value == "" || user.passWord.value == "") {
+    if (userInputElement.value == "" || passInputElement.value == "") {
         btnLoginElement.setAttribute('disabled', 'disabled');
     }
     else {
@@ -17,8 +15,8 @@ function btnLoginEnabler() {
 
 btnLoginEnabler();
 
-user.userName.onchange = function () {
-    if (user.userName.value == "" && userWarnElement.childElementCount == 0) {
+userInputElement.onchange = function () {
+    if (userInputElement.value == "" && userWarnElement.childElementCount == 0) {
         var warnElement = document.createElement('small');
         var warnText = document.createTextNode("Campo usuário não pode estar em branco");
 
@@ -26,13 +24,13 @@ user.userName.onchange = function () {
         userWarnElement.appendChild(warnElement);
         userWarnElement.style.color = '#d20000';
     }
-    else if (user.userName.value != "" && userWarnElement.childElementCount != 0) {
+    else if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
         userWarnElement.removeChild(userWarnElement.childNodes[0]);
     }
     btnLoginEnabler();
 }
-user.passWord.onchange = function () {
-    if (user.userName.value == "" && userWarnElement.childElementCount == 0) {
+passInputElement.onchange = function () {
+    if (userInputElement.value == "" && userWarnElement.childElementCount == 0) {
         var warnElement = document.createElement('small');
         var warnText = document.createTextNode("Campo usuário não pode estar em branco");
 
@@ -40,11 +38,11 @@ user.passWord.onchange = function () {
         userWarnElement.appendChild(warnElement);
         userWarnElement.style.color = '#d20000';
     }
-    else if (user.userName.value != "" && userWarnElement.childElementCount != 0) {
+    else if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
         userWarnElement.removeChild(userWarnElement.childNodes[0]);
     }
 
-    if (user.passWord.value == "" && passWarnElement.childElementCount == 0) {
+    if (passInputElement.value == "" && passWarnElement.childElementCount == 0) {
         var warnElement = document.createElement('small');
         var warnText = document.createTextNode("Campo senha não pode estar em branco");
 
@@ -52,7 +50,7 @@ user.passWord.onchange = function () {
         passWarnElement.appendChild(warnElement);
         passWarnElement.style.color = '#d20000';
     }
-    else if (user.passWord.value != "" && passWarnElement.childElementCount != 0) {
+    else if (passInputElement.value != "" && passWarnElement.childElementCount != 0) {
         passWarnElement.removeChild(passWarnElement.childNodes[0]);
     }
     btnLoginEnabler();
