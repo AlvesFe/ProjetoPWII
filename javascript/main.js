@@ -15,7 +15,7 @@ function btnLoginEnabler() {
 
 btnLoginEnabler();
 
-userInputElement.onchange = function () {
+userInputElement.oninput = function () {
     if (userInputElement.value == "" && userWarnElement.childElementCount == 0) {
         var warnElement = document.createElement('small');
         var warnText = document.createTextNode("Campo usuário não pode estar em branco");
@@ -29,7 +29,7 @@ userInputElement.onchange = function () {
     }
     btnLoginEnabler();
 }
-passInputElement.onchange = function () {
+passInputElement.oninput = function () {
     if (userInputElement.value == "" && userWarnElement.childElementCount == 0) {
         var warnElement = document.createElement('small');
         var warnText = document.createTextNode("Campo usuário não pode estar em branco");
