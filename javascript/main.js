@@ -7,9 +7,13 @@ var btnLoginElement = document.querySelector('#login');
 function btnLoginEnabler() {
     if (userInputElement.value == "" || passInputElement.value == "") {
         btnLoginElement.setAttribute('disabled', 'disabled');
+        btnLoginElement.classList.remove('btn-primary','animated','pulse');
+        btnLoginElement.classList.add('btn-outline-primary');
     }
     else {
         btnLoginElement.removeAttribute('disabled');
+        btnLoginElement.classList.remove('btn-outline-primary');
+        btnLoginElement.classList.add('btn-primary', 'animated', 'pulse');
     }
 }
 
@@ -23,9 +27,11 @@ userInputElement.oninput = function () {
         warnElement.appendChild(warnText);
         userWarnElement.appendChild(warnElement);
         userWarnElement.style.color = '#d20000';
+        userWarnElement.setAttribute('class', 'animated flash');
     }
     else if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
         userWarnElement.removeChild(userWarnElement.childNodes[0]);
+        userWarnElement.classList.remove('animated', 'flash');
     }
     btnLoginEnabler();
 }
@@ -37,9 +43,12 @@ passInputElement.oninput = function () {
         warnElement.appendChild(warnText);
         userWarnElement.appendChild(warnElement);
         userWarnElement.style.color = '#d20000';
+        userWarnElement.setAttribute('class', 'animated flash');
+
     }
     else if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
         userWarnElement.removeChild(userWarnElement.childNodes[0]);
+        userWarnElement.classList.remove('animated', 'flash');
     }
 
     if (passInputElement.value == "" && passWarnElement.childElementCount == 0) {
@@ -49,9 +58,13 @@ passInputElement.oninput = function () {
         warnElement.appendChild(warnText);
         passWarnElement.appendChild(warnElement);
         passWarnElement.style.color = '#d20000';
+        passWarnElement.setAttribute('class', 'animated flash');
     }
     else if (passInputElement.value != "" && passWarnElement.childElementCount != 0) {
         passWarnElement.removeChild(passWarnElement.childNodes[0]);
+        passWarnElement.classList.remove('animated', 'flash');
     }
     btnLoginEnabler();
 }
+
+document.getElementById('loginForm').onload = document.getElementById('loginForm').classList.add('animated', 'fadeIn');
