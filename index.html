@@ -11,7 +11,7 @@
     <style>
         .jumbotron {
             background: rgba(255, 255, 255, 0.850);
-            border-radius: 5em 0em 5em 0em;
+            border-radius: 2.5em 0em 2.5em 0em;
         }
     </style>
 </head>
@@ -19,10 +19,12 @@
 <body class="bg-dark">
 
     <div class="container">
-        <form action="" method="post" id="loginForm" class="jumbotron mx-auto col-sm-12 col-md-6 col-lg-4 mt-9">
-
-            <h4 class="text-center">Bem-vindo!</h4>
-            <h6 class="text-center">Por favor, faça login abaixo</h6>
+        <form action="./controller/validarLogin.php" method="post" id="loginForm"
+            class="jumbotron mx-auto col-sm-12 col-md-6 col-lg-4 mt-9">
+            <label class="text-center col-12">
+                <h4>Bem-vindo!</h4>
+                <h6>Por favor, faça login abaixo</h6>
+            </label>
 
             <div class="form-group my-1 mx-auto">
                 <label class="my-2" for="user">Usuário ou E-mail</label>
@@ -40,12 +42,125 @@
                 <input type="checkbox" class="form-check-input" id="remember">
                 <label class="form-check-label" for="remember">Lembrar-se</label>
                 <small class="form-text d-inline float-right"><a href="./">Esqueceu sua senha?</a></small>
+                <div class="mt-3">
+                    <small class="form-text text-center">Não tem uma conta? <a href="#" data-toggle="modal"
+                            data-target="#modalCadastro">Cadastre-se</a></small>
+                </div>
             </div>
 
-            <input class="form-control col-3 btn-block btn-outline-primary mx-auto mt-4" type="submit" value="Login"
-                id="login">
+            <input class="form-control col-3 btn-block btn-primary mx-auto mt-4" type="submit" value="Login" id="login">
 
         </form>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalCadastro">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cadastro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="./controller/validarLogin.php" method="post" id="registerForm"
+                        class="mx-auto col-sm-12">
+
+
+                        <div class="form-row">
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="name">Nome<small>*</small></label>
+                                <input type="text" class="form-control" name="name" id="name">
+                            </div>
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="surname">Sobrenome<small>*</small></label>
+                                <input type="text" class="form-control" name="surname" id="surname">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="regUser">Usuário<small>*</small></label>
+                                <input type="text" class="form-control" name="regUser" id="regUser">
+                            </div>
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="email">E-mail<small>*</small></label>
+                                <input type="email" class="form-control" name="email" id="email"
+                                    placeholder="exemplo@email.com">
+
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="regPass">Senha<small>*</small></label>
+                                <input type="password" class="form-control" name="regPass" id="regPass">
+                            </div>
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="passConf">Confirmar senha<small>*</small></label>
+                                <input type="password" class="form-control" name="passConf" id="passConf">
+
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-row">
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="birth">Data de nascimento<small>*</small></label>
+                                <input type="date" class="form-control" name="birth" id="birth">
+                            </div>
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="gender">Sexo<small>*</small></label>
+                                <select name="gender" id="gender" class="form-control">
+                                    <option value="male" selected>Masculino</option>
+                                    <option value="female">Feminino</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-row">
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="tel">Telefone</label>
+                                <input type="text" class="form-control" name="tel" id="tel">
+                            </div>
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="cel">Celular</label>
+                                <input type="text" class="form-control" name="cel" id="cel">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="rg">RG<small>*</small></label>
+                                <input type="text" class="form-control" name="rg" id="rg">
+                            </div>
+                            <div class="col-sm-12 col-md-6 my-1">
+                                <label for="cpf">CPF<small>*</small></label>
+                                <input type="text" class="form-control" name="cpf" id="cpf">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <small class="form-text">* : Obrigatório</small>
+                        </div>
+
+                        <div class="form-group form-check mt-1">
+                            <input type="checkbox" class="form-check-input" id="terms">
+                            <label class="form-check-label" for="terms">Eu aceito com os <a href="#">Termos de
+                                    contrato</a></label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <input type="submit" value="Cadastrar" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="./javascript/main.js"></script>
     <script src="./javascript/jquery.js"></script>

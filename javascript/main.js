@@ -1,27 +1,18 @@
 //Declaração de elementos
-var userInputElement = document.querySelector('#user');
-var passInputElement = document.querySelector('#pass');
+const userInputElement = document.querySelector('#user');
+const passInputElement = document.querySelector('#pass');
 var userWarnElement = document.querySelector('#userWarn');
 var passWarnElement = document.querySelector('#passWarn');
-var btnLoginElement = document.querySelector('#login');
 
-//função responsável por permitir que o botão login seja apertado (após verificar que os campos não estão vazios)
-function btnLoginEnabler() {
-    if (userInputElement.value == "" || passInputElement.value == "") {
-        btnLoginElement.setAttribute('disabled', 'disabled');//desabilita o botão
-        btnLoginElement.classList.remove('btn-primary', 'animated', 'pulse');//remove as classes de animação
-        btnLoginElement.classList.add('btn-outline-primary');//adiciona o visual de linhas azuis e corpo branco ao botão
-    }
-    else {
-        btnLoginElement.removeAttribute('disabled');//habilita o botão
-        btnLoginElement.classList.remove('btn-outline-primary');//remove o visual de linhas azuis e corpo branco do botão
-        btnLoginElement.classList.add('btn-primary', 'animated', 'pulse');//adiciona as classes de animação
-    }
-}
+//evento responsavel por inserir animação após o carregamento do elemento
+document.getElementById('loginForm').onload = document.getElementById('loginForm').classList.add('animated', 'fadeIn');
 
-//evento para verificar se o campo de login está vazio
-userInputElement.oninput = function () {
+const formElement = document.forms['loginForm'];
+formElement.addEventListener('submit', function (e) {
+
+    var userPass = false, passwordPass = false;
     if (userInputElement.value == "" && userWarnElement.childElementCount == 0) {
+        e.preventDefault();
         var warnElement = document.createElement('small');//cria uma tag <small>
         var warnText = document.createTextNode("Campo usuário não pode estar em branco");//cria um elemento de texto
 
@@ -30,35 +21,15 @@ userInputElement.oninput = function () {
         userWarnElement.style.color = '#d20000';//muda a cor da tag <div> para vermelho
         userWarnElement.setAttribute('class', 'animated flash');//adiciona animação de piscar a tag <div>
         userInputElement.classList.add('border-danger');
+
+        userPass = false;
     }
     else if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
-        userWarnElement.removeChild(userWarnElement.childNodes[0]);//remove a tag <small> e seus conteudos da tag <div>
-        userWarnElement.classList.remove('animated', 'flash');//remove as animações da tag <div>
-        userInputElement.classList.remove('border-danger');
-    }
-    btnLoginEnabler();//chama a verificação do botão login
-}
-
-//evento para verificar se o campo de login e senha está vazio
-passInputElement.oninput = function () {
-    if (userInputElement.value == "" && userWarnElement.childElementCount == 0) {
-        var warnElement = document.createElement('small');
-        var warnText = document.createTextNode("Campo usuário não pode estar em branco");
-
-        warnElement.appendChild(warnText);
-        userWarnElement.appendChild(warnElement);
-        userWarnElement.style.color = '#d20000';
-        userWarnElement.setAttribute('class', 'animated flash');
-        userInputElement.classList.add('border-danger');
-
-    }
-    else if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
-        userWarnElement.removeChild(userWarnElement.childNodes[0]);
-        userWarnElement.classList.remove('animated', 'flash');
-        userInputElement.classList.remove('border-danger');
+        userPass = true;
     }
 
     if (passInputElement.value == "" && passWarnElement.childElementCount == 0) {
+        e.preventDefault();
         var warnElement = document.createElement('small');
         var warnText = document.createTextNode("Campo senha não pode estar em branco");
 
@@ -67,15 +38,28 @@ passInputElement.oninput = function () {
         passWarnElement.style.color = '#d20000';
         passWarnElement.setAttribute('class', 'animated flash');
         passInputElement.classList.add('border-danger');
+
+        passwordPass = false;
     }
     else if (passInputElement.value != "" && passWarnElement.childElementCount != 0) {
+        passwordPass = true;
+    }
+    if (userPass == true && passwordPass == true) {
+        formElement.submit();
+    }
+});
+
+userInputElement.oninput = function () {
+    if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
+        userWarnElement.removeChild(userWarnElement.childNodes[0]);//remove a tag <small> e seus conteudos da tag <div>
+        userWarnElement.classList.remove('animated', 'flash');//remove as animações da tag <div>
+        userInputElement.classList.remove('border-danger');
+    }
+}
+passInputElement.oninput = function () {
+    if (passInputElement.value != "" && passWarnElement.childElementCount != 0) {
         passWarnElement.removeChild(passWarnElement.childNodes[0]);
         passWarnElement.classList.remove('animated', 'flash');
         passInputElement.classList.remove('border-danger');
     }
-    btnLoginEnabler();
 }
-
-//evento responsavel por inserir animação após o carregamento do elemento
-document.getElementById('loginForm').onload = document.getElementById('loginForm').classList.add('animated', 'fadeIn');
-document.getElementById('loginForm').onload = btnLoginEnabler();
