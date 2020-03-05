@@ -1,0 +1,10 @@
+@media screen and (max-width: 450px) {
+    body {
+        background-image: url("../imagens/bgmobile.png");
+    }
+}
+@media screen and (min-width: 450px) {
+    body {
+        background-image: url("../imagens/bg.png");
+    }
+}

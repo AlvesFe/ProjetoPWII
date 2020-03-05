@@ -29,10 +29,12 @@ userInputElement.oninput = function () {
         userWarnElement.appendChild(warnElement);//insere a tag <small> na tag <div> de id #userWarn na DOM
         userWarnElement.style.color = '#d20000';//muda a cor da tag <div> para vermelho
         userWarnElement.setAttribute('class', 'animated flash');//adiciona animação de piscar a tag <div>
+        userInputElement.classList.add('border-danger');
     }
     else if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
         userWarnElement.removeChild(userWarnElement.childNodes[0]);//remove a tag <small> e seus conteudos da tag <div>
         userWarnElement.classList.remove('animated', 'flash');//remove as animações da tag <div>
+        userInputElement.classList.remove('border-danger');
     }
     btnLoginEnabler();//chama a verificação do botão login
 }
@@ -47,11 +49,13 @@ passInputElement.oninput = function () {
         userWarnElement.appendChild(warnElement);
         userWarnElement.style.color = '#d20000';
         userWarnElement.setAttribute('class', 'animated flash');
+        userInputElement.classList.add('border-danger');
 
     }
     else if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
         userWarnElement.removeChild(userWarnElement.childNodes[0]);
         userWarnElement.classList.remove('animated', 'flash');
+        userInputElement.classList.remove('border-danger');
     }
 
     if (passInputElement.value == "" && passWarnElement.childElementCount == 0) {
@@ -62,10 +66,12 @@ passInputElement.oninput = function () {
         passWarnElement.appendChild(warnElement);
         passWarnElement.style.color = '#d20000';
         passWarnElement.setAttribute('class', 'animated flash');
+        passInputElement.classList.add('border-danger');
     }
     else if (passInputElement.value != "" && passWarnElement.childElementCount != 0) {
         passWarnElement.removeChild(passWarnElement.childNodes[0]);
         passWarnElement.classList.remove('animated', 'flash');
+        passInputElement.classList.remove('border-danger');
     }
     btnLoginEnabler();
 }
