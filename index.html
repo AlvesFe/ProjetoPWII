@@ -71,10 +71,12 @@
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="name">Nome<small>*</small></label>
                                 <input type="text" class="form-control" name="name" id="name">
+                                <small id="nameWarn"></small>
                             </div>
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="surname">Sobrenome<small>*</small></label>
                                 <input type="text" class="form-control" name="surname" id="surname">
+                                <small id="surnameWarn"></small>
                             </div>
                         </div>
 
@@ -82,12 +84,13 @@
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="regUser">Usuário<small>*</small></label>
                                 <input type="text" class="form-control" name="regUser" id="regUser">
+                                <small id="userRegWarn"></small>
                             </div>
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="email">E-mail<small>*</small></label>
                                 <input type="email" class="form-control" name="email" id="email"
                                     placeholder="exemplo@email.com">
-
+                                <small id="emailWarn"></small>
                             </div>
                         </div>
 
@@ -95,11 +98,12 @@
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="regPass">Senha<small>*</small></label>
                                 <input type="password" class="form-control" name="regPass" id="regPass">
+                                <small id="passRegWarn"></small>
                             </div>
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="passConf">Confirmar senha<small>*</small></label>
                                 <input type="password" class="form-control" name="passConf" id="passConf">
-
+                                <small id="passConfWarn"></small>
                             </div>
                         </div>
 
@@ -109,13 +113,16 @@
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="birth">Data de nascimento<small>*</small></label>
                                 <input type="date" class="form-control" name="birth" id="birth">
+                                <small id="birthWarn"></small>
                             </div>
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="gender">Sexo<small>*</small></label>
                                 <select name="gender" id="gender" class="form-control">
-                                    <option value="male" selected>Masculino</option>
+                                    <option value="none" selected>Selecione</option>
+                                    <option value="male">Masculino</option>
                                     <option value="female">Feminino</option>
                                 </select>
+                                <small id="sexWarn"></small>
 
                             </div>
                         </div>
@@ -137,10 +144,12 @@
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="rg">RG<small>*</small></label>
                                 <input type="text" class="form-control" name="rg" id="rg">
+                                <small id="rgWarn"></small>
                             </div>
                             <div class="col-sm-12 col-md-6 my-1">
                                 <label for="cpf">CPF<small>*</small></label>
                                 <input type="text" class="form-control" name="cpf" id="cpf">
+                                <small id="cpfWarn"></small>
                             </div>
                         </div>
 
@@ -152,6 +161,9 @@
                             <input type="checkbox" class="form-check-input" id="terms">
                             <label class="form-check-label" for="terms">Eu aceito com os <a href="#">Termos de
                                     contrato</a></label>
+                            <div>
+                                <small id="termsWarn"></small>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -166,6 +178,7 @@
     <script src="./javascript/jquery.js"></script>
     <script src="./javascript/popper.js"></script>
     <script src="./javascript/bootstrap.js"></script>
+    <script src="./javascript/sweetalert2.all.js"></script>
 </body>
 
 </html>
