@@ -12,7 +12,7 @@
         .jumbotron {
             background: rgba(255, 255, 255, 0.850);
             border-radius: 2.5em 0em 2.5em 0em;
-        }
+        } 
     </style>
 </head>
 
@@ -20,7 +20,7 @@
 
     <div class="container">
         <form action="./controller/validarLogin.php" method="post" id="loginForm"
-            class="jumbotron mx-auto col-sm-12 col-md-6 col-lg-4 mt-9">
+            class="jumbotron col-sm-12 col-md-6 col-lg-4 mx-auto mt-9">
             <label class="text-center col-12">
                 <h4>Bem-vindo!</h4>
                 <h6>Por favor, faça login abaixo</h6>
@@ -29,13 +29,13 @@
             <div class="form-group my-1 mx-auto">
                 <label class="my-2" for="user">Usuário ou E-mail</label>
                 <input class="form-control" type="text" name="user" id="user">
-                <div id="userWarn"></div>
+                <small id="userWarn"></small>
             </div>
 
             <div class="form-group my-1 mx-auto">
                 <label class="my-2" for="pass">Senha</label>
                 <input class="form-control" type="password" name="pass" id="pass">
-                <div id="passWarn"></div>
+                <small id="passWarn"></small>
             </div>
 
             <div class="form-group form-check mt-1">
@@ -176,8 +176,7 @@
     </div>
     <script src="./javascript/main.js"></script>
     <script src="./javascript/jquery.js"></script>
-    <script src="./javascript/popper.js"></script>
-    <script src="./javascript/bootstrap.js"></script>
+    <script src="./javascript/bootstrap.bundle.js"></script>
     <script src="./javascript/sweetalert2.all.js"></script>
 </body>
 

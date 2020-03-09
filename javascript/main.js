@@ -3,58 +3,45 @@
 //Declaração de elementos
 const userInputElement = document.querySelector('#user');
 const passInputElement = document.querySelector('#pass');
-var userWarnElement = document.querySelector('#userWarn');
-var passWarnElement = document.querySelector('#passWarn');
 
 //evento responsavel por inserir animação após o carregamento do elemento
 document.getElementById('loginForm').onload = document.getElementById('loginForm').classList.add('animated', 'fadeIn');
 
+
 const formElement = document.forms['loginForm'];
 formElement.addEventListener('submit', function (e) {
 
-    var userPass = false, passwordPass = false;
-    if (userInputElement.value == "") {
-        e.preventDefault();
-        var warnElement = document.createElement('small');//cria uma tag <small>
-        var warnText = document.createTextNode("Campo usuário não pode estar em branco");//cria um elemento de texto
+    function validarLogin(campo, idSmall, nomeCampo) {
+        if (campo.value == "") {
 
-        warnElement.appendChild(warnText);//insere o texto criado na tag <small>
-        userWarnElement.appendChild(warnElement);//insere a tag <small> na tag <div> de id #userWarn na DOM
-        userWarnElement.style.color = '#d20000';//muda a cor da tag <div> para vermelho
-        userWarnElement.setAttribute('class', 'animated flash');//adiciona animação de piscar a tag <div>
-        userInputElement.classList.add('border-danger');
+            e.preventDefault();
 
-        userPass = false;
+            document.getElementById(idSmall).innerHTML = "Campo " + nomeCampo + " não pode estar em branco";
+            document.getElementById(idSmall).style.color = '#d20000';
+            document.getElementById(idSmall).classList.add('animated', 'flash');
+
+            campo.classList.add('border-danger');
+        }
     }
 
-    if (passInputElement.value == "") {
-        e.preventDefault();
-        var warnElement = document.createElement('small');
-        var warnText = document.createTextNode("Campo senha não pode estar em branco");
+    validarLogin(userInputElement, "userWarn", "Usuário");
+    validarLogin(passInputElement, "passWarn", "Senha");
 
-        warnElement.appendChild(warnText);
-        passWarnElement.appendChild(warnElement);
-        passWarnElement.style.color = '#d20000';
-        passWarnElement.setAttribute('class', 'animated flash');
-        passInputElement.classList.add('border-danger');
-
-        passwordPass = false;
-    }
 });
 
-userInputElement.oninput = function () {
-    if (userInputElement.value != "" && userWarnElement.childElementCount != 0) {
-        userWarnElement.removeChild(userWarnElement.childNodes[0]);//remove a tag <small> e seus conteudos da tag <div>
-        userWarnElement.classList.remove('animated', 'flash');//remove as animações da tag <div>
-        userInputElement.classList.remove('border-danger');
+function clearFields(campo, idSmall) {
+    if (campo.value != "" && document.getElementById(idSmall).innerHTML != "") {
+        document.getElementById(idSmall).innerHTML = "";
+        document.getElementById(idSmall).classList.remove('animated', 'flash');
+        campo.classList.remove('border-danger');
     }
 }
+
+userInputElement.oninput = function () {
+    clearFields(userInputElement, "userWarn");
+}
 passInputElement.oninput = function () {
-    if (passInputElement.value != "" && passWarnElement.childElementCount != 0) {
-        passWarnElement.removeChild(passWarnElement.childNodes[0]);
-        passWarnElement.classList.remove('animated', 'flash');
-        passInputElement.classList.remove('border-danger');
-    }
+    clearFields(passInputElement, "passWarn");
 }
 
 //BLOCO FORM CADASTRO
@@ -74,77 +61,36 @@ const registerForm = document.forms['registerForm'];
 
 registerForm.addEventListener('submit', function (e) {
 
-    let validator = true;
-    if (nameElement.value == "") {
-        document.querySelector('#nameWarn').innerHTML = "Campo nome obrigatório";
-        document.querySelector('#nameWarn').style.color = '#d20000';
-        document.querySelector('#nameWarn').classList.add('animated', 'flash');
+    function validarRegistro(campo, idSmall, nomeCampo) {
+        if (campo.value == "") {
 
-        nameElement.classList.add('border-danger');
-        validator = false;
+            e.preventDefault();
+
+            document.getElementById(idSmall).innerHTML = "Campo " + nomeCampo + " obrigatório";
+            document.getElementById(idSmall).style.color = '#d20000';
+            document.getElementById(idSmall).classList.add('animated', 'flash');
+
+            campo.classList.add('border-danger');
+        }
     }
+    validarRegistro(nameElement, "nameWarn", "nome");
+    validarRegistro(surnameElement, "surnameWarn", "sobrenome");
+    validarRegistro(emailElement, "emailWarn", "e-mail");
+    validarRegistro(userRegElement, "userRegWarn", "usuário");
+    validarRegistro(passRegElement, "passRegWarn", "senha");
+    validarRegistro(passConfElement, "passConfWarn", "confirmar senha");
 
-    if (surnameElement.value == "") {
-        document.querySelector('#surnameWarn').innerHTML = "Campo sobrenome obrigatório";
-        document.querySelector('#surnameWarn').style.color = '#d20000';
-        document.querySelector('#surnameWarn').classList.add('animated', 'flash');
+    if (passConfElement.value != passRegElement.value) {
+        e.preventDefault();
 
-        surnameElement.classList.add('border-danger');
-        validator = false;
-    }
-
-    if (emailElement.value == "") {
-        document.querySelector('#emailWarn').innerHTML = "Campo e-mail obrigatório";
-        document.querySelector('#emailWarn').style.color = '#d20000';
-        document.querySelector('#emailWarn').classList.add('animated', 'flash');
-
-        emailElement.classList.add('border-danger');
-        validator = false;
-    }
-
-    if (userRegElement.value == "") {
-        document.querySelector('#userRegWarn').innerHTML = "Campo usuário obrigatório";
-        document.querySelector('#userRegWarn').style.color = '#d20000';
-        document.querySelector('#userRegWarn').classList.add('animated', 'flash');
-
-        userRegElement.classList.add('border-danger');
-        validator = false;
-    }
-
-    if (passRegElement.value == "") {
-        document.querySelector('#passRegWarn').innerHTML = "Campo senha obrigatório";
-        document.querySelector('#passRegWarn').style.color = '#d20000';
-        document.querySelector('#passRegWarn').classList.add('animated', 'flash');
-
-        passRegElement.classList.add('border-danger');
-        validator = false;
-    }
-
-    if (passConfElement.value == "") {
-        document.querySelector('#passConfWarn').innerHTML = "Campo confirmar senha obrigatório";
-        document.querySelector('#passConfWarn').style.color = '#d20000';
-        document.querySelector('#passConfWarn').classList.add('animated', 'flash');
-
-        passConfElement.classList.add('border-danger');
-        validator = false;
-    }
-    else if (passConfElement.value != passRegElement.value) {
         document.querySelector('#passConfWarn').innerHTML = "Senhas não conferem";
         document.querySelector('#passConfWarn').style.color = '#d20000';
         document.querySelector('#passConfWarn').classList.add('animated', 'flash');
 
         passConfElement.classList.add('border-danger');
-        validator = false;
     }
 
-    if (birthElement.value == "") {
-        document.querySelector('#birthWarn').innerHTML = "Campo nascimento obrigatório";
-        document.querySelector('#birthWarn').style.color = '#d20000';
-        document.querySelector('#birthWarn').classList.add('animated', 'flash');
-
-        birthElement.classList.add('border-danger');
-        validator = false;
-    }
+    validarRegistro(birthElement, "birthWarn", "nascimento");
 
     if (sexElement.value == "none") {
         e.preventDefault();
@@ -154,45 +100,23 @@ registerForm.addEventListener('submit', function (e) {
         document.querySelector('#sexWarn').classList.add('animated', 'flash');
 
         sexElement.classList.add('border-danger');
-        validator = false;
     }
 
-    if (rgElement.value == "") {
-        document.querySelector('#rgWarn').innerHTML = "Campo RG obrigatório";
-        document.querySelector('#rgWarn').style.color = '#d20000';
-        document.querySelector('#rgWarn').classList.add('animated', 'flash');
-
-        rgElement.classList.add('border-danger');
-        validator = false;
-    }
-
-    if (cpfElement.value == "") {
-        document.querySelector('#cpfWarn').innerHTML = "Campo CPF obrigatório";
-        document.querySelector('#cpfWarn').style.color = '#d20000';
-        document.querySelector('#cpfWarn').classList.add('animated', 'flash');
-
-        cpfElement.classList.add('border-danger');
-        validator = false;
-    }
+    validarRegistro(rgElement, "rgWarn", "RG");
+    validarRegistro(cpfElement, "cpfWarn", "CPF");
 
     if (termsElement.checked == 0) {
+        e.preventDefault();
+
         document.querySelector('#termsWarn').innerHTML = "Termos devem ser aceitos para continuar";
         document.querySelector('#termsWarn').style.color = '#d20000';
         document.querySelector('#termsWarn').classList.add('animated', 'flash');
-        validator = false;
     }
-    if (validator != true) {
-        e.preventDefault();
-    } else {
-        formElement.submit();
-    }
+
 });
 
 nameElement.oninput = function () {
-    if (nameElement.value != "" && document.querySelector('#nameWarn').innerHTML != "") {
-        document.querySelector('#nameWarn').innerHTML = "";
-        nameElement.classList.remove('border-danger');
-    }
+    clearLoign
 }
 surnameElement.oninput = function () {
     if (surnameElement.value != "" && document.querySelector('#surnameWarn').innerHTML != "") {
