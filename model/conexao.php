@@ -19,5 +19,4 @@
         echo ("Erro na conexão: " .mysqli_connect_error());
         die();
     }   
-    
 ?>

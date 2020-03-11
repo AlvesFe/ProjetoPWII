@@ -22,10 +22,10 @@
         $_SESSION['idPessoa'] = $linha['idPessoa'];
         $_SESSION['login'] = true;
         $_SESSION['nome'] = $linha['nome'];
-        $_SESSION['tipoUsuario'] = $linha['tipoUsuario'];
+        $_SESSION['cargo'] = $linha['cargo'];
         
-        switch($linha['tipoUsuario']){
-            case "administrador":
+        switch($linha['cargo']){
+            case "adm":
                 echo "SucessoADM";
                 break;
             case "cliente":

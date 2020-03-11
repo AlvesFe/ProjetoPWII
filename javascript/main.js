@@ -5,20 +5,12 @@ const passInputElement = document.querySelector('#pass');
 //evento responsavel por inserir animação após o carregamento do elemento
 document.getElementById('loginForm').onload = document.getElementById('loginForm').classList.add('animated', 'fadeIn');
 
-let validatorLogin = true;
 function validarLogin(campo, idSmall, nomeCampo) {
-    if (campo.value == "") {
-        validatorLogin = false;
-        document.getElementById(idSmall).innerHTML = "Campo " + nomeCampo + " não pode estar em branco";
-        document.getElementById(idSmall).style.color = '#d20000';
-        document.getElementById(idSmall).classList.add('animated', 'flash');
+    document.getElementById(idSmall).innerHTML = "Campo " + nomeCampo + " não pode estar em branco";
+    document.getElementById(idSmall).style.color = '#d20000';
+    document.getElementById(idSmall).classList.add('animated', 'flash');
 
-        campo.classList.add('is-invalid');
-        
-    }
-    else {
-        clearFields(campo, idSmall);
-    }
+    campo.classList.add('is-invalid');
 }
 
 function clearFields(campo, idSmall) {
@@ -29,15 +21,56 @@ function clearFields(campo, idSmall) {
     }
 }
 
-const formElement = document.forms['loginForm'];
-formElement.addEventListener('submit', function (e) {
-    validarLogin(userInputElement, "userWarn", "Usuário");
-    validarLogin(passInputElement, "passWarn", "Senha");
-
-    if (validatorLogin == false) {
-        e.preventDefault();
-        validatorLogin = true;
-    }
+$(function () {
+    $('#loginForm').submit(function () {
+        var obj = this;
+        var form = $(obj);
+        var dados = new FormData(obj);
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: dados,
+            processData: false,
+            cache: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "ErroEmail") {
+                    validarLogin(userInputElement, userInputElement.nextElementSibling.getAttribute('id'), "Usuário");
+                }
+                else {
+                    clearFields(userInputElement, userInputElement.nextElementSibling.getAttribute('id'));
+                }
+                if (data == "ErroSenha") {
+                    validarLogin(passInputElement, passInputElement.nextElementSibling.getAttribute('id'), "Senha");
+                }
+                else {
+                    clearFields(passInputElement, passInputElement.nextElementSibling.getAttribute('id'));
+                }
+                if (data == "FalhaLogin") {
+                    Swal.fire(
+                        'Falha',
+                        'Usuário ou senha inválidos',
+                        'error'
+                    );
+                }
+                if (data == "SucessoCliente") {
+                    Swal.fire(
+                        'Sucesso',
+                        'Logado como cliente',
+                        'success'
+                    );
+                }
+                if (data == "SucessoADM") {
+                    Swal.fire(
+                        'Sucesso',
+                        'Logado como administrador',
+                        'success'
+                    );
+                }
+            },
+        });
+        return false;
+    });
 });
 
 const nameElement = document.querySelector('#name');
@@ -122,7 +155,7 @@ registerForm.addEventListener('submit', function (e) {
         document.querySelector('#termsWarn').innerHTML = "";
     }
 
-    if (validatorLogin == false) {
+    if (validatorReg == false) {
         e.preventDefault();
         validatorReg = true;
     }
