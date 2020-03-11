@@ -1,5 +1,3 @@
-//BLOCO FORM LOGIN
-
 //Declaração de elementos
 const userInputElement = document.querySelector('#user');
 const passInputElement = document.querySelector('#pass');
@@ -7,44 +5,40 @@ const passInputElement = document.querySelector('#pass');
 //evento responsavel por inserir animação após o carregamento do elemento
 document.getElementById('loginForm').onload = document.getElementById('loginForm').classList.add('animated', 'fadeIn');
 
+let validatorLogin = true;
+function validarLogin(campo, idSmall, nomeCampo) {
+    if (campo.value == "") {
+        validatorLogin = false;
+        document.getElementById(idSmall).innerHTML = "Campo " + nomeCampo + " não pode estar em branco";
+        document.getElementById(idSmall).style.color = '#d20000';
+        document.getElementById(idSmall).classList.add('animated', 'flash');
 
-const formElement = document.forms['loginForm'];
-formElement.addEventListener('submit', function (e) {
-
-    function validarLogin(campo, idSmall, nomeCampo) {
-        if (campo.value == "") {
-
-            e.preventDefault();
-
-            document.getElementById(idSmall).innerHTML = "Campo " + nomeCampo + " não pode estar em branco";
-            document.getElementById(idSmall).style.color = '#d20000';
-            document.getElementById(idSmall).classList.add('animated', 'flash');
-
-            campo.classList.add('border-danger');
-        }
+        campo.classList.add('is-invalid');
+        
     }
-
-    validarLogin(userInputElement, "userWarn", "Usuário");
-    validarLogin(passInputElement, "passWarn", "Senha");
-
-});
+    else {
+        clearFields(campo, idSmall);
+    }
+}
 
 function clearFields(campo, idSmall) {
     if (campo.value != "" && document.getElementById(idSmall).innerHTML != "") {
         document.getElementById(idSmall).innerHTML = "";
         document.getElementById(idSmall).classList.remove('animated', 'flash');
-        campo.classList.remove('border-danger');
+        campo.classList.remove('is-invalid');
     }
 }
 
-userInputElement.oninput = function () {
-    clearFields(userInputElement, "userWarn");
-}
-passInputElement.oninput = function () {
-    clearFields(passInputElement, "passWarn");
-}
+const formElement = document.forms['loginForm'];
+formElement.addEventListener('submit', function (e) {
+    validarLogin(userInputElement, "userWarn", "Usuário");
+    validarLogin(passInputElement, "passWarn", "Senha");
 
-//BLOCO FORM CADASTRO
+    if (validatorLogin == false) {
+        e.preventDefault();
+        validatorLogin = true;
+    }
+});
 
 const nameElement = document.querySelector('#name');
 const surnameElement = document.querySelector('#surname');
@@ -59,20 +53,24 @@ const cpfElement = document.querySelector('#cpf');
 const termsElement = document.querySelector('#terms');
 const registerForm = document.forms['registerForm'];
 
-registerForm.addEventListener('submit', function (e) {
+let validatorReg = true;
+function validarRegistro(campo, idSmall, nomeCampo) {
+    if (campo.value == "") {
+        document.getElementById(idSmall).innerHTML = "Campo " + nomeCampo + " obrigatório";
+        document.getElementById(idSmall).style.color = '#d20000';
+        document.getElementById(idSmall).classList.add('animated', 'flash');
 
-    function validarRegistro(campo, idSmall, nomeCampo) {
-        if (campo.value == "") {
-
-            e.preventDefault();
-
-            document.getElementById(idSmall).innerHTML = "Campo " + nomeCampo + " obrigatório";
-            document.getElementById(idSmall).style.color = '#d20000';
-            document.getElementById(idSmall).classList.add('animated', 'flash');
-
-            campo.classList.add('border-danger');
-        }
+        campo.classList.add('is-invalid');
+        validarorReg = false;
     }
+    else {
+        clearFields(campo, idSmall);
+    }
+}
+
+registerForm.addEventListener('submit', function (e) {
+    validatorReg = true;
+
     validarRegistro(nameElement, "nameWarn", "nome");
     validarRegistro(surnameElement, "surnameWarn", "sobrenome");
     validarRegistro(emailElement, "emailWarn", "e-mail");
@@ -81,6 +79,7 @@ registerForm.addEventListener('submit', function (e) {
     validarRegistro(passConfElement, "passConfWarn", "confirmar senha");
 
     if (passConfElement.value != passRegElement.value) {
+
         e.preventDefault();
 
         document.querySelector('#passConfWarn').innerHTML = "Senhas não conferem";
@@ -93,6 +92,7 @@ registerForm.addEventListener('submit', function (e) {
     validarRegistro(birthElement, "birthWarn", "nascimento");
 
     if (sexElement.value == "none") {
+
         e.preventDefault();
 
         document.querySelector('#sexWarn').innerHTML = "Campo sexo obrigatório";
@@ -101,83 +101,30 @@ registerForm.addEventListener('submit', function (e) {
 
         sexElement.classList.add('border-danger');
     }
+    else if (sexElement.value != "none" && document.querySelector('#sexWarn').innerHTML != "") {
+
+        document.querySelector('#sexWarn').innerHTML = "";
+        sexElement.classList.remove('border-danger');
+    }
 
     validarRegistro(rgElement, "rgWarn", "RG");
     validarRegistro(cpfElement, "cpfWarn", "CPF");
 
     if (termsElement.checked == 0) {
+
         e.preventDefault();
 
         document.querySelector('#termsWarn').innerHTML = "Termos devem ser aceitos para continuar";
         document.querySelector('#termsWarn').style.color = '#d20000';
         document.querySelector('#termsWarn').classList.add('animated', 'flash');
     }
-
-});
-
-nameElement.oninput = function () {
-    clearLoign
-}
-surnameElement.oninput = function () {
-    if (surnameElement.value != "" && document.querySelector('#surnameWarn').innerHTML != "") {
-        document.querySelector('#surnameWarn').innerHTML = "";
-        surnameElement.classList.remove('border-danger');
-    }
-}
-emailElement.oninput = function () {
-    if (emailElement.value != "" && document.querySelector('#emailWarn').innerHTML != "") {
-        document.querySelector('#emailWarn').innerHTML = "";
-        emailElement.classList.remove('border-danger');
-    }
-}
-userRegElement.oninput = function () {
-    if (userRegElement.value != "" && document.querySelector('#userRegWarn').innerHTML != "") {
-        document.querySelector('#userRegWarn').innerHTML = "";
-        userRegElement.classList.remove('border-danger');
-    }
-}
-passRegElement.oninput = function () {
-    if (passRegElement.value != "" && document.querySelector('#passRegWarn').innerHTML != "") {
-        document.querySelector('#passRegWarn').innerHTML = "";
-        passRegElement.classList.remove('border-danger');
-    }
-}
-passConfElement.oninput = function () {
-    if (passConfElement.value != "" && document.querySelector('#passConfWarn').innerHTML == "Campo confirmar senha obrigatório") {
-        document.querySelector('#passConfWarn').innerHTML = "";
-        passConfElement.classList.remove('border-danger');
-    }
-    if (passConfElement.value == passRegElement.value && document.querySelector('#passConfWarn').innerHTML == "Senhas não conferem") {
-        document.querySelector('#passConfWarn').innerHTML = "";
-        passConfElement.classList.remove('border-danger');
-    }
-}
-birthElement.oninput = function () {
-    if (birthElement.value != "" && document.querySelector('#birthWarn').innerHTML != "") {
-        document.querySelector('#birthWarn').innerHTML = "";
-        birthElement.classList.remove('border-danger');
-    }
-}
-sexElement.oninput = function () {
-    if (sexElement.value != "none" && document.querySelector('#sexWarn').innerHTML != "") {
-        document.querySelector('#sexWarn').innerHTML = "";
-        sexElement.classList.remove('border-danger');
-    }
-}
-rgElement.oninput = function () {
-    if (rgElement.value != "" && document.querySelector('#rgWarn').innerHTML != "") {
-        document.querySelector('#rgWarn').innerHTML = "";
-        rgElement.classList.remove('border-danger');
-    }
-}
-cpfElement.oninput = function () {
-    if (cpfElement.value != "" && document.querySelector('#cpfWarn').innerHTML != "") {
-        document.querySelector('#cpfWarn').innerHTML = "";
-        cpfElement.classList.remove('border-danger');
-    }
-}
-termsElement.oninput = function () {
-    if (termsElement.value != "0" && document.querySelector('#termsWarn').innerHTML != "") {
+    else if (termsElement.value != "0" && document.querySelector('#termsWarn').innerHTML != "") {
         document.querySelector('#termsWarn').innerHTML = "";
     }
-}
+
+    if (validatorLogin == false) {
+        e.preventDefault();
+        validatorReg = true;
+    }
+
+});
