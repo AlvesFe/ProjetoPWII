@@ -16,6 +16,8 @@
     $gender = $_POST['gender'];
     $rg = $_POST['rg'];
     $cpf = $_POST['cpf'];
+    $tel = $_POST['tel'];
+    $cel = $_POST['cel'];
 
     if(empty($name)){
         echo "ErroNome";
@@ -27,6 +29,10 @@
     }
     if(empty($regUser)){
         echo "ErroUsuario";
+        die();
+    }
+    if (strlen($regUser) < 6) {
+        echo "ErroTamanhoUsuario";
         die();
     }
     if(empty($email)){
@@ -45,8 +51,16 @@
         echo "ErroDiferenteSenhas";
         die();
     }
+    if (strlen($regPass) < 8) {
+        echo "ErroTamanhoSenha";
+        die();
+    }
     if(empty($birth)){
         echo "ErroNascimento";
+        die();
+    }
+    if ($birth > "2007-01-01") {
+        echo "ErroJovemDemais";
         die();
     }
     if ($gender == "none") {
@@ -57,9 +71,21 @@
         echo "ErroRG";
         die();
     }
+    if (strlen($rg) < 9) {
+        echo "ErroTamanhoRg";
+        die();
+    }
     if(empty($cpf)){
         echo "ErroCPF";
         die();
     }
+    if (strlen($cpf) < 11) {
+        echo "ErroTamanhoCpf";
+        die();
+    }
+
+    $completeName = $name." ".$surname;
+
+    include_once '../model/cadastro.php';
 
 ?>
