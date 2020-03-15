@@ -3,7 +3,7 @@ const userInputElement = document.querySelector('#user');
 const passInputElement = document.querySelector('#pass');
 
 //evento responsavel por inserir animação após o carregamento do elemento
-document.getElementById('loginForm').onload = document.getElementById('loginForm').classList.add('animated', 'fadeIn');
+$('#loginForm').onload = $('#loginForm').addClass('animated fadeIn');
 
 function validarLogin(campo, nomeCampo) {
     campo.nextElementSibling.innerHTML = "Campo " + nomeCampo + " não pode estar em branco";
@@ -93,14 +93,47 @@ const rgElement = document.querySelector('#rg');
 const cpfElement = document.querySelector('#cpf');
 const termsElement = document.querySelector('#terms');
 
-$(document).ready(function(){
+$("#btnNext").click(function () {
+    $("#modalCadastroPag1").addClass("d-none");
+    $("#modalCadastroPag1").removeClass("d-block");
+
+    $("#modalCadastroPag2").removeClass("d-none");
+    $("#modalCadastroPag2").addClass("d-block");
+
+    $('#btnNext').hide();
+
+    $('#btnBack').addClass("d-block");
+    $('#btnBack').removeClass("d-none");
+
+    $('#registerBtn').addClass("d-block");
+    $('#registerBtn').removeClass("d-none");
+});
+
+$("#btnBack").click(function () {
+    $("#modalCadastroPag2").addClass("d-none");
+    $("#modalCadastroPag2").removeClass("d-block");
+
+    $("#modalCadastroPag1").removeClass("d-none");
+    $("#modalCadastroPag1").addClass("d-block");
+
+    $('#btnNext').show();
+
+    $('#btnBack').addClass("d-none");
+    $('#btnBack').removeClass("d-block");
+
+    $('#registerBtn').addClass("d-none");
+    $('#registerBtn').removeClass("d-block");
+});
+
+
+$(document).ready(function () {
     $('#tel').mask('(00) 0000-0000');
     $('#cel').mask('(00) 00000-0000');
     $('#rg').mask('00.000.000-0');
     $('#cpf').mask('000.000.000-00');
 });
 
-    
+
 $(function () {
     $('#registerForm').submit(function () {
         var obj = this;
@@ -114,20 +147,27 @@ $(function () {
             cache: false,
             contentType: false,
             success: function (data) {
+
+                //Primeira página
+                let validatorPagI = true;
+
                 if (data == "ErroNome") {
                     validarRegistro(nameElement, "nome");
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(nameElement);
                 }
                 if (data == "ErroSobrenome") {
                     validarLogin(surnameElement, "sobrenome");
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(surnameElement);
                 }
                 if (data == "ErroUsuario") {
                     validarLogin(userRegElement, "usuario");
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(userRegElement);
@@ -138,24 +178,28 @@ $(function () {
                     userRegElement.nextElementSibling.classList.add('animated', 'flash');
 
                     userRegElement.classList.add('is-invalid');
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(userRegElement);
                 }
                 if (data == "ErroEmail") {
                     validarLogin(emailElement, "e-mail");
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(emailElement);
                 }
                 if (data == "ErroSenha") {
                     validarLogin(passRegElement, "senha");
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(passRegElement);
                 }
                 if (data == "ErroConfirmarSenha") {
                     validarLogin(passConfElement, "confirmar senha");
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(passConfElement);
@@ -166,6 +210,7 @@ $(function () {
                     passConfElement.nextElementSibling.classList.add('animated', 'flash');
 
                     passConfElement.classList.add('is-invalid');
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(passConfElement);
@@ -176,10 +221,21 @@ $(function () {
                     passRegElement.nextElementSibling.classList.add('animated', 'flash');
 
                     passRegElement.classList.add('is-invalid');
+                    validatorPagI = false;
                 }
                 else {
                     clearFields(passRegElement);
                 }
+                if (validatorPagI == false) {
+                    $('#btnBack').removeClass("btn-outline-primary");
+                    $('#btnBack').addClass("btn-outline-danger animated pulse");
+                }
+                else{
+                    $('#btnBack').removeClass("btn-outline-danger animated pulse");
+                    $('#btnBack').addClass("btn-outline-primary");                }
+
+
+                //Segunda pagina
                 if (data == "ErroNascimento") {
                     validarLogin(birthElement, "nascimento");
                 }
@@ -235,21 +291,22 @@ $(function () {
                     clearFields(cpfElement);
                 }
 
-                if(data == "SucessoCadastro"){
+                if (data == "SucessoCadastro") {
+                    $('#modalCadastro').modal('hide');
                     Swal.fire(
                         'Cadastro concluído',
-                        'Seja bem vindo '+ nameElement.value + "!",
+                        'Seja bem vindo ' + nameElement.value + "!",
                         'success'
                     );
                 }
-                else if(data == "FalhaCadastro"){
+                else if (data == "FalhaCadastro") {
+                    $('#modalCadastro').modal('hide');
                     Swal.fire(
                         'Falha no cadastro',
                         'Tente novamente mais tarde',
                         'error'
                     );
                 }
-
             },
         });
         return false;

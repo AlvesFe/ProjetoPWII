@@ -71,7 +71,7 @@
         echo "ErroRG";
         die();
     }
-    if (strlen($rg) < 9) {
+    if (strlen($rg) < 12) {
         echo "ErroTamanhoRg";
         die();
     }
@@ -79,7 +79,7 @@
         echo "ErroCPF";
         die();
     }
-    if (strlen($cpf) < 11) {
+    if (strlen($cpf) < 14) {
         echo "ErroTamanhoCpf";
         die();
     }
