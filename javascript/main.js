@@ -2,9 +2,10 @@
 const userInputElement = document.querySelector('#user');
 const passInputElement = document.querySelector('#pass');
 
-//evento responsavel por inserir animação após o carregamento do elemento
+//Evento responsavel por inserir animação após o carregamento do elemento
 $('#loginForm').onload = $('#loginForm').addClass('animated fadeIn');
 
+//Função para adicionar alerta no campo em branco no form de login
 function validarLogin(campo, nomeCampo) {
     campo.nextElementSibling.innerHTML = "Campo " + nomeCampo + " não pode estar em branco";
     campo.nextElementSibling.style.color = '#d20000';
@@ -13,6 +14,7 @@ function validarLogin(campo, nomeCampo) {
     campo.classList.add('is-invalid');
 }
 
+//Função para adicionar alerta no campo em branco no form de cadastro
 function validarRegistro(campo, nomeCampo) {
     campo.nextElementSibling.innerHTML = "Campo " + nomeCampo + " obrigatório";
     campo.nextElementSibling.style.color = '#d20000';
@@ -21,6 +23,7 @@ function validarRegistro(campo, nomeCampo) {
     campo.classList.add('is-invalid');
 }
 
+//Função para limpar as mensagens de erro
 function clearFields(campo) {
     if (campo.value != "" && campo.nextElementSibling.innerHTML != "") {
         campo.nextElementSibling.innerHTML = "";
@@ -29,6 +32,7 @@ function clearFields(campo) {
     }
 }
 
+//função para validar o login
 $(function () {
     $('#loginForm').submit(function () {
         var obj = this;
@@ -93,6 +97,7 @@ const rgElement = document.querySelector('#rg');
 const cpfElement = document.querySelector('#cpf');
 const termsElement = document.querySelector('#terms');
 
+//função que leva a próxima página de cadastro
 $("#btnNext").click(function () {
     $("#modalCadastroPag1").addClass("d-none");
     $("#modalCadastroPag1").removeClass("d-block");
@@ -109,6 +114,7 @@ $("#btnNext").click(function () {
     $('#registerBtn').removeClass("d-none");
 });
 
+//função que volta para a primeira página de cadastro
 $("#btnBack").click(function () {
     $("#modalCadastroPag2").addClass("d-none");
     $("#modalCadastroPag2").removeClass("d-block");
@@ -125,7 +131,7 @@ $("#btnBack").click(function () {
     $('#registerBtn').removeClass("d-block");
 });
 
-
+//função que adiciona mascaras aos campos de telefone, celular, cpf e rg
 $(document).ready(function () {
     $('#tel').mask('(00) 0000-0000');
     $('#cel').mask('(00) 00000-0000');
@@ -133,7 +139,7 @@ $(document).ready(function () {
     $('#cpf').mask('000.000.000-00');
 });
 
-
+//função para validar o cadastro
 $(function () {
     $('#registerForm').submit(function () {
         var obj = this;
