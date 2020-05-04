@@ -59,25 +59,34 @@ $(function () {
                     clearFields(passInputElement);
                 }
                 if (data == "FalhaLogin") {
-                    Swal.fire(
-                        'Falha',
-                        'Usuário ou senha inválidos',
-                        'error'
-                    );
+                    Swal.fire({
+                        customClass: {
+                            popup: 'alertCustom',
+                        },
+                        icon: "error",
+                        titleText: "Erro",
+                        text: "Usuário ou senha não conferem",
+                    });
                 }
                 if (data == "SucessoCliente") {
-                    Swal.fire(
-                        'Sucesso',
-                        'Logado como cliente',
-                        'success'
-                    );
+                    Swal.fire({
+                        customClass: {
+                            popup: 'alertCustom'
+                        },
+                        icon: "success",
+                        titleText: "Sucesso",
+                        text: "Logado como cliente"
+                    });
                 }
                 if (data == "SucessoADM") {
-                    Swal.fire(
-                        'Sucesso',
-                        'Logado como administrador',
-                        'success'
-                    );
+                    Swal.fire({
+                        customClass: {
+                            popup: 'alertCustom'
+                        },
+                        icon: "success",
+                        titleText: "Sucesso",
+                        text: "Logado como administrador"
+                    });
                 }
             },
         });
@@ -137,6 +146,17 @@ $(document).ready(function () {
     $('#cel').mask('(00) 00000-0000');
     $('#rg').mask('00.000.000-0');
     $('#cpf').mask('000.000.000-00');
+});
+
+$(function () {
+    $('#regUSer').change(function () {
+        var obj = this;
+        var form = $(obj);
+        var dados = new FormData(obj);
+        $.ajax({
+            url: "./controller/vali"
+        });
+    });
 });
 
 //função para validar o cadastro
@@ -236,9 +256,10 @@ $(function () {
                     $('#btnBack').removeClass("btn-outline-primary");
                     $('#btnBack').addClass("btn-outline-danger animated pulse");
                 }
-                else{
+                else {
                     $('#btnBack').removeClass("btn-outline-danger animated pulse");
-                    $('#btnBack').addClass("btn-outline-primary");                }
+                    $('#btnBack').addClass("btn-outline-primary");
+                }
 
 
                 //Segunda pagina
@@ -299,19 +320,25 @@ $(function () {
 
                 if (data == "SucessoCadastro") {
                     $('#modalCadastro').modal('hide');
-                    Swal.fire(
-                        'Cadastro concluído',
-                        'Seja bem vindo ' + nameElement.value + "!",
-                        'success'
-                    );
+                    Swal.fire({
+                        customClass: {
+                            popup: 'alertCustom'
+                        },
+                        icon: "success",
+                        titleText: "Cadastro concluído",
+                        text: 'Seja bem vindo ' + nameElement.value + '!'
+                    });
                 }
                 else if (data == "FalhaCadastro") {
                     $('#modalCadastro').modal('hide');
-                    Swal.fire(
-                        'Falha no cadastro',
-                        'Tente novamente mais tarde',
-                        'error'
-                    );
+                    Swal.fire({
+                        customClass: {
+                            popup: 'alertCustom'
+                        },
+                        icon: "error",
+                        titleText: "Falha no cadastro",
+                        text: 'Tente novamente mais tarde'
+                    });
                 }
             },
         });
