@@ -28,8 +28,8 @@
             case "adm":
                 echo "SucessoADM";
                 break;
-            case "cliente":
-                echo "SucessoCliente";
+            case "usuario":
+                echo "SucessoUsuario";
                 break;
             default:
                 echo "FalhaLogin";

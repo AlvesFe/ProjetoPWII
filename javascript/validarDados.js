@@ -65,14 +65,14 @@ $(function () {
                         text: "Usuário ou senha não conferem",
                     });
                 }
-                if (data == "SucessoCliente") {
+                if (data == "SucessoUsuario") {
                     Swal.fire({
                         customClass: {
                             popup: 'alertCustom'
                         },
                         icon: "success",
                         titleText: "Sucesso",
-                        text: "Logado como cliente"
+                        text: "Logado como Usuário"
                     });
                 }
                 if (data == "SucessoADM") {

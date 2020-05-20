@@ -9,7 +9,7 @@ create table Pessoa(
     email varchar(150) not null unique,
     userName varchar(100) not null unique,
     senha varchar(30) not null,
-    cargo varchar(30) not null default "cliente",
+    cargo varchar(30) not null default "usuario",
     dataNasc date not null,
     sexo varchar(15) not null,
     telFixo char(14),
